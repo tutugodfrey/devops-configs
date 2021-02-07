@@ -1,0 +1,5 @@
+terraform.tfstate.backup
+terraform.tfstate
+puppet-deploy/.terraform/
+puppet-deploy/terraform.tfstate.backup
+puppet-deploy/terraform.tfstate
