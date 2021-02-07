@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pvc-deploy
+  labels:
+    app: pvc-deploy
+spec:
+  selector:
+    matchLabels:
+      app: pvc-deploy
+  template:
+    metadata:
+      labels:
+        app: pvc-deploy
+    spec:
+      volumes:
+        - name: pvc-claimed
+          persistentVolumeClaim:
+            claimName: my-pvc
+      containers:
+      - name: pvc-httpd
+        image: httpd:latest
+        ports:
+          - containerPort: 80
+            name: http-port
+        volumeMounts:
+          - name: pvc-claimed
+            mountPath: /pvc-data
+

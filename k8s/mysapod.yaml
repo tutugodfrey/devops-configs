@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysapod
+spec:
+  serviceAccount: mysa
+  containers:
+  - name: alpine
+    image: alpine
+    command:
+    - "sleep"
+    - "3600"
+
