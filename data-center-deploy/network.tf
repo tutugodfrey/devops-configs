@@ -18,6 +18,15 @@ resource "google_compute_subnetwork" "subnet-europe-west1" {
   network       = google_compute_network.puppet-course-net.self_link
   ip_cidr_range = "10.20.0.0/16"
   region        = var.subnet_region
+
+}
+
+resource "google_compute_subnetwork" "subnet-europe-west2" {
+  project = var.project_id
+  name = "subnet-europe-west2"
+  network = google_compute_network.puppet-course-net.self_link
+  ip_cidr_range = "10.30.0.0/16"
+  region = "europe-west2"
 }
 
 resource "google_compute_firewall" "puppet-course-firwall" {
@@ -57,6 +66,14 @@ resource "google_compute_address" "ubuntu-ip-address" {
   subnetwork      = google_compute_subnetwork.subnet-europe-west1.id
 }
 
+ resource "google_compute_address" "jenkins-server-ip" {
+  name = "jenkins-server-ip"
+  address_type = "INTERNAL"
+  address = "10.30.0.7"
+  region = "europe-west2"
+  subnetwork = google_compute_subnetwork.subnet-europe-west2.id
+}
+
 module "puppet-master" {
   source           = "./instance"
   instance_name    = "puppet"
@@ -91,4 +108,16 @@ module "puppet-host-ubuntu" {
   startup_file     = "agent-ubuntu-startup.sh"
   instance_network = google_compute_network.puppet-course-net.self_link
   instance_subnet  = google_compute_subnetwork.subnet-europe-west1.self_link
+}
+
+module "jenkins-server" {
+ source = "./instance"
+ instance_name = "jenkins-server"
+ instance_type = "n1-standard-1"
+ instance_image = "ubuntu-os-cloud/ubuntu-1804-lts"
+ instance_zone = "europe-west2-b"
+ instance_ip = google_compute_address.jenkins-server-ip.address
+ startup_file = "agent-ubuntu-startup.sh"
+ instance_network = google_compute_network.puppet-course-net.self_link
+ instance_subnet = google_compute_subnetwork.subnet-europe-west2.self_link
 }

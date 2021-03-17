@@ -21,3 +21,17 @@ sleep 60s;
 puppet agent -t;
 systemctl status vsftpd;
 
+# add ansible user and password
+yum install epel-release -y;
+yum install ansible -y;
+useradd -G wheel ansible -m;
+echo ansible | passwd --stdin ansible;
+sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config;
+
+mkdir /home/ansible/.ssh;
+touch /home/ansible/.ssh/authorized_keys;
+chmod 600 /home/ansible/.ssh/authorized_keys;
+chmod 700 /home/ansible/.ssh;
+chown ansible /home/ansible/.ssh;
+chown ansible /home/ansible/.ssh/authorized_keys;
+

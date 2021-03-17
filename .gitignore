@@ -1,5 +1,5 @@
 terraform.tfstate.backup
 terraform.tfstate
-puppet-deploy/.terraform/
-puppet-deploy/terraform.tfstate.backup
-puppet-deploy/terraform.tfstate
+data-center-deploy/.terraform/
+data-center-deploy/terraform.tfstate.backup
+data-center-deploy/terraform.tfstate
