@@ -1,8 +1,0 @@
----
-- name: use galaxy nginx role
-  hosts : all
-  user: ansible
-  become: true
-
-  roles:
-    - role: geerlingguy.nginx
