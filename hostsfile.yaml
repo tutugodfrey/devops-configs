@@ -1,0 +1,9 @@
+---
+- name: update /etc/hosts file dynamically
+  hosts: all
+  tasks:
+    - name: update /etc/hosts
+      template:
+        src: templates/hosts.js
+        dest: /etc/hosts
+...
