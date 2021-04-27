@@ -1,0 +1,21 @@
+---
+- name: download large file
+  hosts: lcsa-centos
+  tasks:
+    - name: download large file
+      get_url:
+        url: https://www.xxxx.com/pub/bigfile.zip
+        dest: /tmp/
+      async: 7200
+      poll: 0
+      register: background_download
+
+    - name: wait for download completion
+      async_status:
+        jid: "{{ background_download_ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 30
+      delay: 120
+
+...
