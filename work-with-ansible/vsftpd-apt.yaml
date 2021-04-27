@@ -1,0 +1,16 @@
+---
+- name: deploy vsftpd
+  hosts: lcsa-ubuntu
+  tasks:
+  - name: install vsftpd
+    apt:
+      name: vsftpd
+  - name: enable vsftpd
+    service: name=vsftpd enable=true
+  - name: create readme file
+    copy:
+      content: "welcome to this FTP server"
+      dest: /var/ftp/pub/README
+      force: no
+      mode: 0444
+...

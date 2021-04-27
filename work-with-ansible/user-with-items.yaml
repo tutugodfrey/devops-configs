@@ -1,0 +1,14 @@
+- name: create users
+  hosts: all
+  tasks:
+  - name: manage user and group membership
+    user:
+      name: "{{ item.name }}"
+      state: present
+      groups: "{{ item.group }}"
+    with_items:
+      - { name: 'linda', group: 'student' }
+      - { name: 'anna', group: 'profs' }
+
+
+

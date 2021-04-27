@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+  - name: show IP address
+    debug:
+      msg: >
+        This host user IP address {{ ansible_facts.default_ipv4.address }}
+
+...
