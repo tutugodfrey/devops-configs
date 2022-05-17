@@ -16,8 +16,10 @@
 
 variable "project_id" {
   description = "The project ID to host the network in"
+  default = "qwiklabs-gcp-02-234c95754c7c"
 }
 
 variable "network_name" {
   description = "The name of the VPC network being created"
+  default = "example-vpc"
 }
