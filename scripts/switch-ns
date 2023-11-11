@@ -1,0 +1,13 @@
+#! /bin/bash
+
+NS=$1
+CURRENT_NS=$(kubectl get sa default -o yaml | grep namespace | awk -F":" '{ print $2 }');
+
+if [[ -z $NS ]]; then
+  NS=default
+fi
+
+kubectl config set-context --current --namespace $NS
+
+NEW_NS=$(kubectl get sa default  -o jsonpath="{ .metadata.namespace }");
+echo Switched from namespace $CURRENT_NS to $NEW_NS

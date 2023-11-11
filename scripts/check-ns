@@ -1,0 +1,6 @@
+#! /bin/bash
+
+NS=$(kubectl get sa default -o jsonpath='{ .metadata.namespace }');
+
+echo You are in \"$NS\" namespace
+
